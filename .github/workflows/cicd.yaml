@@ -5,6 +5,10 @@ on:
       - "main"
       - "dev"
       - "yisus44/feature/cicd"
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read # This is required for actions/checkout
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,3 +19,15 @@ jobs:
       - uses: actions/checkout@v3
       - run: npm install
       - run: npm run build
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::442846313043:role/GithubActionsS3CarewatchWebCICD
+          role-session-name: samplerolesession
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Print AWS SSM Parameter
+        run: aws ssm get-parameter --name=hello_aws-gh-oidc --query Parameter.Value
+
+      - name: Print assumed role
+        run: aws sts get-caller-identity
