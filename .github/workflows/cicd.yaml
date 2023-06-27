@@ -23,7 +23,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-          role-session-name: samplerolesession
+          role-session-name: publishtos3session
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Deploy dist folder to s3
