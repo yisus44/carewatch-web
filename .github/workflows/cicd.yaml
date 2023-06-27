@@ -1,0 +1,17 @@
+name: CICD to s3
+on:
+  push:
+    branches:
+      - "main"
+      - "dev"
+      - "yisus44/feature/cicd"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm install
+      - run: npm run build
