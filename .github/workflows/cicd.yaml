@@ -27,4 +27,4 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Deploy dist folder to s3
-        run: aws s3 sync ./dist s3://carewatch-en-equipo --delete
+        run: aws s3 sync ./dist  ${{ secrets.AWS_BUCKET }} --delete
