@@ -6,6 +6,7 @@ import "./App.css";
 function App() {
   const [count, setCount] = useState(0);
 
+  fetch("https://api.carewatch-en-equipo.com");
   return (
     <>
       <div>
