@@ -1,1 +1,1 @@
-export const baseUrl = "http://api.carewatch-en-equipo.com/";
+export const baseUrl = "https://api.carewatch-en-equipo.com/";
