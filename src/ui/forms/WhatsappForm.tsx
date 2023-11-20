@@ -36,7 +36,7 @@ export default function WhatsappForm({
       console.log(data); // Proceed with form submission
       setRequest({
         ...request,
-        guestWhatsapp: data.whatsapp,
+        guestPhone: data.whatsapp,
       });
       console.log({ request }); // Proceed with form submission
 
