@@ -6,13 +6,17 @@ import AppForm from "../forms/AppForm";
 import SelectionForm from "../forms/SelectionForm";
 import { FormsEnum } from "../../common/constants/formsEnum";
 import ConfirmForm from "../forms/ConfirmForm";
-
+import Navbar from "../components/Navbar";
+import { Container, Row, Col, Button, CardTitle } from "react-bootstrap";
+import { primaryColor } from "../../common/constants/colors";
+import { ConfirmGroupRequest } from "../../common/services/confirm-user-group";
 export function MultiStepForm() {
   const [emailCommunication, setEmailCommunication] = useState(false);
   const [whatsAppCommunication, setWhatsAppCommunication] = useState(false);
   const [appCommunication, setAppCommunication] = useState(false);
   const [currentForm, setCurrentForm] = useState(0);
   const [selectedForms, setSelectedForms] = useState([]);
+  const [request, setRequest] = useState<ConfirmGroupRequest>();
 
   const handleEmailCommunicationChange = () => {
     const communication = !emailCommunication;
@@ -91,13 +95,13 @@ export function MultiStepForm() {
   };
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-md-12">
-          <h1>Multi-Step Form</h1>
-        </div>
-      </div>
-      {currentForm == FormsEnum.SELECTION_FORM && (
+    <Container>
+      <Row className="p-4">
+        <Col md={12} className="d-flex justify-content-center">
+          <h2>Unete a un grupo!</h2>
+        </Col>
+      </Row>
+      {currentForm === FormsEnum.SELECTION_FORM && (
         <SelectionForm
           appCommunication={appCommunication}
           handleAppCommunicationChange={handleAppCommunicationChange}
@@ -105,31 +109,69 @@ export function MultiStepForm() {
           handleEmailCommunicationChange={handleEmailCommunicationChange}
           whatsAppCommunication={whatsAppCommunication}
           handleWhatsAppCommunicationChange={handleWhatsAppCommunicationChange}
+          showNextButton={currentForm !== FormsEnum.CONFIRM_FORM}
+          disableNextButton={
+            !emailCommunication && !whatsAppCommunication && !appCommunication
+          }
+          handleNextClick={handleNextClick}
+          handlePreviousClick={handlePreviousClick}
+          showPreviousButton={currentForm !== FormsEnum.SELECTION_FORM}
+          request={request}
+          setRequest={setRequest}
         />
       )}
-      {currentForm == FormsEnum.WHATSAPP_FORM && <WhatsappForm />}
-      {currentForm == FormsEnum.APP_FORM && <AppForm />}
-      {currentForm == FormsEnum.EMAIL_FORM && <EmailForm />}
-      {currentForm == FormsEnum.CONFIRM_FORM && <ConfirmForm />}
-
-      <div className="row">
-        <div className="col-md-12">
-          <button
-            className="btn btn-primary"
-            disabled={
-              !emailCommunication && !whatsAppCommunication && !appCommunication
-            }
-            onClick={handleNextClick}
-          >
-            Siguiente
-          </button>
-          {currentForm !== FormsEnum.SELECTION_FORM && (
-            <button className="btn btn-danger" onClick={handlePreviousClick}>
-              Volver
-            </button>
-          )}
-        </div>
-      </div>
-    </div>
+      {currentForm === FormsEnum.WHATSAPP_FORM && (
+        <WhatsappForm
+          showNextButton={currentForm !== FormsEnum.CONFIRM_FORM}
+          disableNextButton={
+            !emailCommunication && !whatsAppCommunication && !appCommunication
+          }
+          handleNextClick={handleNextClick}
+          handlePreviousClick={handlePreviousClick}
+          showPreviousButton={currentForm !== FormsEnum.SELECTION_FORM}
+          request={request}
+          setRequest={setRequest}
+        />
+      )}
+      {currentForm === FormsEnum.APP_FORM && (
+        <AppForm
+          showNextButton={currentForm !== FormsEnum.CONFIRM_FORM}
+          disableNextButton={
+            !emailCommunication && !whatsAppCommunication && !appCommunication
+          }
+          handleNextClick={handleNextClick}
+          handlePreviousClick={handlePreviousClick}
+          showPreviousButton={currentForm !== FormsEnum.SELECTION_FORM}
+          request={request}
+          setRequest={setRequest}
+        />
+      )}
+      {currentForm === FormsEnum.EMAIL_FORM && (
+        <EmailForm
+          showNextButton={currentForm !== FormsEnum.CONFIRM_FORM}
+          disableNextButton={
+            !emailCommunication && !whatsAppCommunication && !appCommunication
+          }
+          handleNextClick={handleNextClick}
+          handlePreviousClick={handlePreviousClick}
+          showPreviousButton={currentForm !== FormsEnum.SELECTION_FORM}
+          request={request}
+          setRequest={setRequest}
+        />
+      )}
+      {currentForm === FormsEnum.CONFIRM_FORM && (
+        <ConfirmForm
+          showNextButton={currentForm !== FormsEnum.CONFIRM_FORM}
+          disableNextButton={
+            !emailCommunication && !whatsAppCommunication && !appCommunication
+          }
+          handleNextClick={handleNextClick}
+          handlePreviousClick={handlePreviousClick}
+          showPreviousButton={currentForm !== FormsEnum.SELECTION_FORM}
+          request={request}
+          setRequest={setRequest}
+        />
+      )}
+    </Container>
   );
 }

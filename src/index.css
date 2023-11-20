@@ -1,4 +1,4 @@
-:root {
+/* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -66,4 +66,18 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+} */
+.form-check-input {
+  background-image: url("data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%27-4 -4 8 8%27><circle r=%273%27 fill=%27%23666%27/></svg>") !important;
+}
+.form-check-input:checked {
+  background-color: #c3aafb !important;
+  border-color: #c3aafb !important;
+  background-image: url("data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%27-4 -4 8 8%27><circle r=%273%27 fill=%27%23fff%27/></svg>") !important;
+}
+
+.form-check-input:focus {
+  border-color: black !important;
+  outline: 0;
+  box-shadow: none !important;
 }
