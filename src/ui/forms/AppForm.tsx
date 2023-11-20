@@ -41,7 +41,7 @@ export default function AppForm({
       if (!response) return alert("Credenciales incorrectas");
       setRequest({
         ...request,
-        guestUserId: response,
+        userId: response,
       });
       console.log({ response });
       handleNextClick();

@@ -7,7 +7,7 @@ export interface ConfirmGroupRequest {
   whatsAppCommunication?: boolean;
   carewatchCommunication?: boolean;
   guestWhatsapp?: string;
-  guestUserId?: number;
+  userId?: number;
 }
 
 export async function confirmUserGroup(
@@ -26,7 +26,7 @@ export async function confirmUserGroup(
     confirmGroupRequest.whatsAppCommunication = true;
   }
 
-  if (confirmGroupRequest.guestUserId) {
+  if (confirmGroupRequest.userId) {
     confirmGroupRequest.carewatchCommunication = true;
   }
 
