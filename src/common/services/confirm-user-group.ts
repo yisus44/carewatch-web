@@ -16,7 +16,7 @@ export async function confirmUserGroup(
   url: string = baseUrl
 ): Promise<boolean> {
   console.log({ token });
-  const confirmUserGroup = `${url}/user-groups/${token}/accept`;
+  const confirmUserGroup = `${url}user-groups/${token}/accept`;
   let payload: ConfirmGroupRequest;
   if (confirmGroupRequest.guestEmail) {
     confirmGroupRequest.emailCommunication = true;
