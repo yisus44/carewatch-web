@@ -27,10 +27,10 @@ export default function ConfirmForm({
   setRequest,
 }) {
   const [hasJoined, setHasJoined] = useState(false);
-  const { userGroupId } = useParams();
+  const { userGroupToken } = useParams();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await confirmUserGroup(userGroupId, request);
+    const response = await confirmUserGroup(userGroupToken, request);
     if (!response)
       return alert(
         "Hubo un error, intentalo nuevamente o revisa que hayas escrito correctamento todo"

@@ -2,9 +2,14 @@ import { baseUrl } from "../constants/baseUrl";
 import axios from "axios";
 
 export async function deleteUserGroup(
-  url: string = baseUrl,
-  userGroupId: number
-): Promise<void> {
-  const deleteUserGroupURL = `${url}/user-group/${userGroupId}`;
-  await axios.delete(deleteUserGroupURL);
+  userGroupToken: string,
+  url: string = baseUrl
+): Promise<boolean> {
+  const deleteUserGroupURL = `${url}user-groups/${userGroupToken}/external`;
+  try {
+    await axios.delete(deleteUserGroupURL);
+    return true;
+  } catch (error) {
+    return false;
+  }
 }
