@@ -15,8 +15,8 @@ export function MultiStepForm() {
   const email = searchParams.get("email");
   const phone = searchParams.get("phone");
 
-  const [emailCommunication, setEmailCommunication] = useState();
-  const [whatsAppCommunication, setWhatsAppCommunication] = useState();
+  const [emailCommunication, setEmailCommunication] = useState(false);
+  const [whatsAppCommunication, setWhatsAppCommunication] = useState(false);
   const [appCommunication, setAppCommunication] = useState(false);
   const [currentForm, setCurrentForm] = useState(0);
   const [selectedForms, setSelectedForms] = useState([]);
