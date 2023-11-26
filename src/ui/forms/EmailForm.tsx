@@ -24,6 +24,7 @@ export default function EmailForm({
   handlePreviousClick,
   request,
   setRequest,
+  defaultValue,
 }) {
   const {
     register,
@@ -57,6 +58,7 @@ export default function EmailForm({
         <CardBody>
           <Form.Control
             type="email"
+            defaultValue={defaultValue}
             {...register("email", { required: true })}
           />
           {errors.email && errors.email.type === "required" && (

@@ -15,6 +15,7 @@ import {
   secondaryColor,
   secondaryFontColor,
 } from "../../common/constants/colors";
+import { getAvailability } from "../../common/services/get-availability";
 
 export default function WhatsappForm({
   showNextButton,
@@ -24,6 +25,7 @@ export default function WhatsappForm({
   handlePreviousClick,
   request,
   setRequest,
+  defaultValue,
 }) {
   const {
     register,
@@ -31,12 +33,30 @@ export default function WhatsappForm({
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  function manipulateString(inputString: string): string {
+    if (inputString.startsWith("1")) {
+      return "521" + inputString.slice(1);
+    } else if (inputString.startsWith("52") && !inputString.startsWith("521")) {
+      return "521" + inputString.slice(2);
+    } else if (!inputString.startsWith("521")) {
+      return "521" + inputString;
+    } else {
+      return inputString;
+    }
+  }
+
+  const onSubmit = async (data) => {
+    const number = manipulateString(data.whatsapp);
+    const isAvailable = await getAvailability(number);
+    if (!isAvailable)
+      return alert(
+        "Este número no puede recibir mensajes de WhatsApp. Por favor, escribe uno que sí pueda."
+      );
     if (Object.keys(errors).length === 0) {
       console.log(data); // Proceed with form submission
       setRequest({
         ...request,
-        guestPhone: data.whatsapp,
+        guestPhone: number,
       });
       console.log({ request }); // Proceed with form submission
 
@@ -60,17 +80,20 @@ export default function WhatsappForm({
         <CardBody>
           <Form.Control
             type="text"
+            defaultValue={defaultValue}
             {...register("whatsapp", {
               required: true,
               pattern: {
-                value: /^\+(?:[0-9] ?){6,14}[0-9]$/,
-                message: "Favor de ingresar un numero valido de whatsapp",
+                value: /^\d{10}$/,
+                message:
+                  "Favor de ingresar un numero valido de whatsapp en el formato 3315615450",
               },
             })}
           />
           {errors.whatsapp && (
             <Alert variant="danger" className="p-1 mt-1 mb-0">
-              Por favor, ingresa tu número de WhatsApp para continuar
+              Por favor, ingresa tu número de WhatsApp de para continuar
+              Ejemplo: 3315615450
             </Alert>
           )}
         </CardBody>

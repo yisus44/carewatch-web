@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import EmailForm from "../forms/EmailForm";
 import WhatsappForm from "../forms/WhatsappForm";
@@ -11,12 +11,24 @@ import { Container, Row, Col, Button, CardTitle } from "react-bootstrap";
 import { primaryColor } from "../../common/constants/colors";
 import { ConfirmGroupRequest } from "../../common/services/confirm-user-group";
 export function MultiStepForm() {
-  const [emailCommunication, setEmailCommunication] = useState(false);
-  const [whatsAppCommunication, setWhatsAppCommunication] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const email = searchParams.get("email");
+  const phone = searchParams.get("phone");
+
+  const [emailCommunication, setEmailCommunication] = useState();
+  const [whatsAppCommunication, setWhatsAppCommunication] = useState();
   const [appCommunication, setAppCommunication] = useState(false);
   const [currentForm, setCurrentForm] = useState(0);
   const [selectedForms, setSelectedForms] = useState([]);
-  const [request, setRequest] = useState<ConfirmGroupRequest>();
+  const [request, setRequest] = useState<ConfirmGroupRequest>({
+    guestEmail: email,
+    guestPhone: phone,
+  });
+
+  useEffect(() => {
+    if (email) handleEmailCommunicationChange();
+    if (phone) handleWhatsAppCommunicationChange();
+  }, []);
 
   const handleEmailCommunicationChange = () => {
     const communication = !emailCommunication;
@@ -131,6 +143,7 @@ export function MultiStepForm() {
           showPreviousButton={currentForm !== FormsEnum.SELECTION_FORM}
           request={request}
           setRequest={setRequest}
+          defaultValue={phone}
         />
       )}
       {currentForm === FormsEnum.APP_FORM && (
@@ -157,6 +170,7 @@ export function MultiStepForm() {
           showPreviousButton={currentForm !== FormsEnum.SELECTION_FORM}
           request={request}
           setRequest={setRequest}
+          defaultValue={email}
         />
       )}
       {currentForm === FormsEnum.CONFIRM_FORM && (

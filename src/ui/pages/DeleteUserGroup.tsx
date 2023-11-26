@@ -20,7 +20,7 @@ export function DeleteUserGroup() {
               fontSize: "3rem",
             }}
           >
-            Has dejado de recibir notificaciones de carewatch
+            Has dejado de recibir notificaciones de Carewatch
           </h2>
 
           <p
@@ -28,9 +28,9 @@ export function DeleteUserGroup() {
               fontSize: "1.3rem",
             }}
           >
-            Para volver a tener notificaciones de carewatch, dile al
+            Para volver a recibir notificaciones de Carewatch, dile al
             administrador de tu grupo que te vuelva a agregar. Puedes cerrar
-            esta ventana
+            esta ventana.
           </p>
         </Col>
       </Row>
